@@ -1,4 +1,4 @@
-package com.letscode.ecusuarioapi.domain;
+package com.letscode.ecuserapi.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,16 +20,14 @@ public class UserEntity {
     private String password;
     private String name;
     private String email;
-    private String cartId;
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateUpdated;
 
-    public UserEntity(String userName, String password, String name, String email, String cartId, ZonedDateTime dateCreated, ZonedDateTime dateUpdated) {
+    public UserEntity(String userName, String password, String name, String email, ZonedDateTime dateCreated, ZonedDateTime dateUpdated) {
         this.userName = userName;
         this.password = password;
         this.name = name;
         this.email = email;
-        this.cartId = cartId;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
     }

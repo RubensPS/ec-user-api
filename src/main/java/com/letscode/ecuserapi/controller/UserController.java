@@ -1,10 +1,9 @@
-package com.letscode.ecusuarioapi.controller;
+package com.letscode.ecuserapi.controller;
 
-import com.letscode.ecusuarioapi.domain.UserRequest;
-import com.letscode.ecusuarioapi.domain.UserResponse;
-import com.letscode.ecusuarioapi.service.UserService;
+import com.letscode.ecuserapi.domain.UserRequest;
+import com.letscode.ecuserapi.domain.UserResponse;
+import com.letscode.ecuserapi.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

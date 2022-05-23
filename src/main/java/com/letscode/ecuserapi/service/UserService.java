@@ -1,10 +1,10 @@
-package com.letscode.ecusuarioapi.service;
+package com.letscode.ecuserapi.service;
 
-import com.letscode.ecusuarioapi.domain.UserEntity;
-import com.letscode.ecusuarioapi.domain.UserRequest;
-import com.letscode.ecusuarioapi.domain.UserResponse;
-import com.letscode.ecusuarioapi.gateway.CartGateway;
-import com.letscode.ecusuarioapi.repository.UserRepository;
+import com.letscode.ecuserapi.domain.UserEntity;
+import com.letscode.ecuserapi.domain.UserRequest;
+import com.letscode.ecuserapi.domain.UserResponse;
+import com.letscode.ecuserapi.gateway.CartGateway;
+import com.letscode.ecuserapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

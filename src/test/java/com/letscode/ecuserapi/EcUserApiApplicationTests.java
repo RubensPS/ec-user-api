@@ -1,10 +1,10 @@
-package com.letscode.ecusuarioapi;
+package com.letscode.ecuserapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EcUsuarioApiApplicationTests {
+class EcUserApiApplicationTests {
 
     @Test
     void contextLoads() {

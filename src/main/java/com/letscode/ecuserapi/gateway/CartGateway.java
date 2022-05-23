@@ -1,6 +1,7 @@
-package com.letscode.ecusuarioapi.gateway;
+package com.letscode.ecuserapi.gateway;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -11,11 +12,10 @@ public class CartGateway {
 
     private final RestTemplate restTemplate;
 
-    public ResponseEntity<Long> addCart(Long userId) {
-
+    public ResponseEntity<String> addCart(Long userId) {
         String url =String.format("http://cartAPI:8080/cart/%s", userId);
-        restTemplate.getForEntity(url, String.class);
-        return restTemplate.postForEntity(url, , Long.class);
+        //HttpEntity<String> request = new HttpEntity<>(null, null);
+        return restTemplate.postForEntity(url, null, String.class);
     }
 
 }
