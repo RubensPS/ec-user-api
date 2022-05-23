@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/user")
+@RestController("/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -20,11 +20,11 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
-        userService.getUserById(id);
-        UserResponse response = userService.
-        return ResponseEntity.ok(response);
-    }
+    //@GetMapping("{id}")
+    //public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
+        //userService.getUserById(id);
+        //UserResponse response = userService.
+        //return ResponseEntity.ok(response);
+    //}
 
 }

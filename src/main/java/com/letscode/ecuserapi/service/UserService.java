@@ -17,6 +17,7 @@ public class UserService {
 
     public UserResponse addUser(UserRequest request) {
         UserEntity entity = request.toEntity();
+        cartGateway.addCart(entity.getId());
         UserResponse response = new UserResponse(repository.save(entity));
         return response;
     }

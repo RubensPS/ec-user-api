@@ -12,7 +12,7 @@ public class CartGateway {
 
     private final RestTemplate restTemplate;
 
-    public ResponseEntity<String> addCart(Long userId) {
+    public ResponseEntity<String> addCart(String userId) {
         String url =String.format("http://cartAPI:8080/cart/%s", userId);
         //HttpEntity<String> request = new HttpEntity<>(null, null);
         return restTemplate.postForEntity(url, null, String.class);
