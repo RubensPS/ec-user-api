@@ -1,0 +1,42 @@
+services:
+  ec-users-mysql:
+    image: mysql:latest
+    container_name: ec-users-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: users
+
+  ec-carts-mongo:
+    image: mongo:latest
+    container_name: ec-carts-mongo
+
+  ec-products-mongo:
+    image: mongo:latest
+    container_name: ec-products-mongo
+    command: mongod --port 27018
+    ports:
+      - 27018:27018
+
+  usersAPI:
+    image: ec-users-api-image
+    container_name: ec-users-api-container
+    ports:
+      - 8080:8080
+    depends_on:
+      - ec-users-mysql
+
+  cartsAPI:
+    image: ec-carts-api-image
+    container_name: ec-carts-api-container
+    ports:
+      - 8081:8081
+    depends_on:
+      - ec-carts-mongo
+
+  productsAPI:
+    image: ec-products-api-image
+    container_name: ec-products-api-container
+    ports:
+      - 8082:8082
+    depends_on:
+      - ec-products-mongo
