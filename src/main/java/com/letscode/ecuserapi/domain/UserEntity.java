@@ -15,7 +15,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Integer id;
     private String userName;
     private String password;
     private String name;

@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 @Setter
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class UserResponse {
+    private Integer id;
     private String userName;
     private String name;
     private String email;
@@ -18,6 +19,7 @@ public class UserResponse {
     private ZonedDateTime dateUpdated;
 
     public UserResponse(UserEntity entity) {
+        this.id = entity.getId();
         this.userName = entity.getUserName();
         this.name = entity.getName();
         this.email = entity.getEmail();
