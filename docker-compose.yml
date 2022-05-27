@@ -17,6 +17,13 @@ services:
     ports:
       - 27018:27018
 
+  ec-sales-mongo:
+    image: mongo:latest
+    container_name: ec-sales-mongo
+    command: mongo --port 27019
+    ports:
+      - 27019:27019
+
   usersAPI:
     image: ec-users-api-image
     container_name: ec-users-api-container
@@ -32,6 +39,7 @@ services:
       - 8081:8081
     depends_on:
       - ec-carts-mongo
+      - usersAPI
 
   productsAPI:
     image: ec-products-api-image
@@ -40,3 +48,14 @@ services:
       - 8082:8082
     depends_on:
       - ec-products-mongo
+
+  salesAPI:
+    image: ec-sales-api-image
+    container_name: ec-sales-api-container
+    ports:
+      - 8083:8083
+    depends_on:
+      - ec-sales-mongo
+      - usersAPI
+      - cartsAPI
+      - productsAPI
