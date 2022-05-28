@@ -18,20 +18,26 @@ public class UserController {
     private final UserService userService;
 
 
+
     @PostMapping("/add")
     public ResponseEntity<UserResponse> addNewUser(@RequestBody UserRequest request) {
         UserResponse response = userService.addUser(request);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Integer id) {
-        Optional<UserEntity> entity = userService.getUser(id);
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Integer userId) {
+        Optional<UserEntity> entity = userService.getUser(userId);
         if (entity.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         UserResponse response = new UserResponse(entity.get());
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/user/remove/{userId}")
+    public ResponseEntity<String> deleteUserById(@PathVariable Integer userId) {
+        return userService.deleteUser(userId);
     }
 
 }
