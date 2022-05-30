@@ -5,10 +5,18 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: users
+    networks:
+      ec-network-01:
+        aliases:
+          - ec-users-mysql
 
   ec-carts-mongo:
     image: mongo:latest
     container_name: ec-carts-mongo
+    networks:
+      ec-network-01:
+        aliases:
+          - ec-carts-mongo
 
   ec-products-mongo:
     image: mongo:latest
@@ -16,6 +24,10 @@ services:
     command: mongod --port 27018
     ports:
       - 27018:27018
+    networks:
+      ec-network-01:
+        aliases:
+          - ec-products-mongo
 
   ec-sales-mongo:
     image: mongo:latest
@@ -23,42 +35,70 @@ services:
     command: mongod --port 27019
     ports:
       - 27019:27019
+    networks:
+      ec-network-01:
+        aliases:
+          - ec-sales-mongo
 
   usersAPI:
+    build: ~/IdeaProjects/ec-user-api
     image: ec-users-api-image
     container_name: ec-users-api-container
     ports:
-      - 8080:8080
+      - 8083:80
     depends_on:
       - ec-users-mysql
+      - eureka-server
+    networks:
+      ec-network-01:
+        aliases:
+          - ec-users-service
 
   cartsAPI:
+    build: ~/IdeaProjects/ec-carts-api/
     image: ec-carts-api-image
     container_name: ec-carts-api-container
     ports:
-      - 8081:8081
+      - 8081:80
     depends_on:
       - ec-carts-mongo
       - usersAPI
+      - productsAPI
+      - eureka-server
+    networks:
+      ec-network-01:
+        aliases:
+          - ec-carts-service
 
   productsAPI:
+    build: ~/IdeaProjects/ec-products-api/
     image: ec-products-api-image
     container_name: ec-products-api-container
     ports:
-      - 8082:8082
+      - 8082:80
     depends_on:
       - ec-products-mongo
+      - eureka-server
+    networks:
+      ec-network-01:
+        aliases:
+          - ec-products-service
 
   salesAPI:
+    build: ~/IdeaProjects/ec-sales-api/
     image: ec-sales-api-image
     container_name: ec-sales-api-container
     ports:
-      - 8083:8083
+      - 80:80
     depends_on:
       - ec-sales-mongo
       - usersAPI
       - cartsAPI
-      - productsAPI
+      - eureka-server
+    networks:
+      ec-network-01:
+        aliases:
+          - ec-sales-service
 
 #  spring-admin:
 #    image: ec-spring-admin-image
@@ -82,6 +122,10 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
+    networks:
+      ec-network-01:
+        aliases:
+          - prometheus
 
   grafana:
     image: grafana/grafana:latest
@@ -90,9 +134,25 @@ services:
       - 3000:3000
     volumes:
       - C:/Users/ruben/IdeaProjects/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+    depends_on:
+      - prometheus
+    networks:
+      ec-network-01:
+        aliases:
+          - grafana
 
   eureka-server:
+#    build:
     image: springcloud/eureka
-    container_name: eureka-server-container
+    container_name: eureka-server
     ports:
       - 8761:8761
+    networks:
+      ec-network-01:
+        aliases:
+          - eureka-server
+
+networks:
+  ec-network-01:
+    name: ec-network-01
+    driver: bridge

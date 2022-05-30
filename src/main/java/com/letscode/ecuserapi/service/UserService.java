@@ -5,7 +5,6 @@ import com.letscode.ecuserapi.domain.UserRequest;
 import com.letscode.ecuserapi.domain.UserResponse;
 import com.letscode.ecuserapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
