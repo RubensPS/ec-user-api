@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,8 +17,6 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
-
-
 
     @PostMapping("/add")
     public ResponseEntity<UserResponse> addNewUser(@RequestBody UserRequest request) {
@@ -38,6 +37,12 @@ public class UserController {
     @DeleteMapping("/user/remove/{userId}")
     public ResponseEntity<String> deleteUserById(@PathVariable Integer userId) {
         return userService.deleteUser(userId);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<UserResponse> entities = userService.getAllUsers();
+        return ResponseEntity.ok(entities);
     }
 
 }

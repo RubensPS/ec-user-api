@@ -59,3 +59,40 @@ services:
       - usersAPI
       - cartsAPI
       - productsAPI
+
+#  spring-admin:
+#    image: ec-spring-admin-image
+#    container_name: ec-spring-admin-container
+#    ports:
+#      - 8084:8084
+#    depends_on:
+#      - usersAPI
+#      - productsAPI
+#      - cartsAPI
+#      - salesAPI
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus-container
+    ports:
+      - 9090:9090
+    volumes:
+      - C:/Users/ruben/IdeaProjects/prometheus:/etc/prometheus
+      - C:/Users/ruben/IdeaProjects/prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana-container
+    ports:
+      - 3000:3000
+    volumes:
+      - C:/Users/ruben/IdeaProjects/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+
+  eureka-server:
+    image: springcloud/eureka
+    container_name: eureka-server-container
+    ports:
+      - 8761:8761
