@@ -20,8 +20,7 @@ public class UserController {
 
     @PostMapping("/add")
     public ResponseEntity<UserResponse> addNewUser(@RequestBody UserRequest request) {
-        UserResponse response = userService.addUser(request);
-        return ResponseEntity.ok(response);
+        return userService.addUser(request);
     }
 
     @GetMapping("/user/{userId}")

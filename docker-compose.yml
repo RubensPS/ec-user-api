@@ -53,7 +53,6 @@ services:
       ec-network-01:
         aliases:
           - ec-users-service
-
   cartsAPI:
     build: ~/IdeaProjects/ec-carts-api/
     image: ec-carts-api-image
@@ -142,8 +141,8 @@ services:
           - grafana
 
   eureka-server:
-#    build:
-    image: springcloud/eureka
+    build: ~/IdeaProjects/ec-eureka-server/
+    image: ec-eureka-image
     container_name: eureka-server
     ports:
       - 8761:8761
