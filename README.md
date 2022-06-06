@@ -19,10 +19,10 @@ Each module will be explained below.
 
 This module consists of the users domain. It has endpoints for the creation, removal, specific user retrieval and all user information listing.
 
-#### New user
+### New user
 
-* POST in JSON format
 http://localhost:8080/users/add
+* POST in JSON format
 {
 	"userName":"String",
 	"password":"String",
