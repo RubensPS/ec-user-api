@@ -18,11 +18,11 @@ Each module will be explained below.
 ## Ec-user-api
 
 This module consists of the users domain. It has endpoints for the creation, removal, specific user retrieval and all user information listing.
+It uses a realtional mySQL database. This modoule also contains a docker-compose.yml file for the build of images and creation of all the containers, with the exception of the databases, prometheus and grafana.
 
-### New user
-
+#### New user
 http://localhost:8080/users/add
-* POST in JSON format
+* POST in JSON format.
 {
 	"userName":"String",
 	"password":"String",
@@ -30,15 +30,64 @@ http://localhost:8080/users/add
 	"email":"String"
 }
 
-### Consult user
+#### Consult user
 http://localhost:8080/users/user/1
-* GET without body with user ID as PathVariable
+* GET without body with user ID as PathVariable.
 
-### List all users
+#### List all users
 http://localhost:8080/users/all
-* GET without body
+* GET without body.
 
-### Delete user
+#### Delete user
 http://localhost:8080/users/user/remove/1
-* DELETE without body
+* DELETE without body with user ID as PathVariable.
+
+## Ec-products-api
+
+This module consists of the products domain. The endpoints available are listed below.
+It uses a non relation database mongodb.
+
+#### New product
+http://localhost:8080/products/add
+* POST in JSON format.
+{
+	"name":"String",
+	"group":"String",
+	"description": "String",
+	"supply": Long,
+	"price": BigDecimal
+}
+
+#### Consult product price by ID
+http://localhost:8080/products/get/price/6292c04af8eafe11f8c7c343
+* GET without body with product ID as PathVariable. Used by the ec-carts-api to update total cart price when a new product is added on cart.
+
+#### Consult product by ID
+http://localhost:8080/products/get/6292c04af8eafe11f8c7c343
+* GET without body with product ID as PathVariable.
+
+#### List all products
+http://localhost:8080/products/get
+* GET without body.
+
+#### Delete product
+http://localhost:8080/products/remove/6292c04af8eafe11f8c7c343
+* DELETE without body with product ID as PathVariable.
+
+#### Check product supply
+http://localhost:8080/products/supply/6292c04af8eafe11f8c7c343
+* GET without body, used by the ec-sales-api to check if there is enough products in stock to close the sale.
+
+#### Subtract supply from sale
+http://localhost:8080/products/supply/products
+* PATCH with a JSON body containing a HashMap<String, Long>. It is used by the ec-sales-api to reduce the ammount of each product after the closed sale,
+updating the stock.
+
+## Ec-user-api
+
+## Ec-user-api
+
+
+
+
 
