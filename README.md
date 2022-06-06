@@ -80,13 +80,14 @@ http://localhost:8080/products/supply/6292c04af8eafe11f8c7c343
 
 #### Subtract supply from sale
 http://localhost:8080/products/supply/products
-* PATCH with a JSON body containing a HashMap<String, Long>. It is used by the ec-sales-api to reduce the ammount of each product after the closed sale,
+* PATCH with a JSON body containing a HashMap<String, Long>. It is used by the ec-sales-api to reduce the amount of each product after the closed sale,
 updating the stock.
 
-## Ec-user-api
+## Ec-carts-api
+This module consists of the carts domain. Each user can have only one active cart at a given time. The cart has a HashMap<String ID, Long Quantity> where all the products chosen are stored for a sale.
 
-## Ec-user-api
-
+## Ec-sales-api
+This module consists of the sales domain. When a user wants to buy the products in the cart, the sales api is responsible to check if there are enough stock, compute the sale with the total value, subtract the proper amount of each product from stock and change cart status to inactive, so the user can start a new one.
 
 
 
