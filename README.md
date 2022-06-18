@@ -1,4 +1,5 @@
 # E-commerce API
+![coverage](.github/badges/jacoco.svg)
 
 ## Introduction
 
