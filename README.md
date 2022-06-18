@@ -1,6 +1,6 @@
 # E-commerce API
 [![test_check](https://github.com/RubensPS/ec-user-api/actions/workflows/gradle.yml/badge.svg)](https://github.com/RubensPS/ec-user-api/actions/workflows/gradle.yml)
-
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/RubensPS/ec-user-api/actions/workflows/build.yml)
 ## Introduction
 
 This e-commerce API was developed as a final project for Let's Code Santander Coders Web Full-Stack course. It was structured to use a microsservice architecture.
