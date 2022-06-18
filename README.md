@@ -1,6 +1,6 @@
 # E-commerce API
 [![test_check](https://github.com/RubensPS/ec-user-api/actions/workflows/gradle.yml/badge.svg)](https://github.com/RubensPS/ec-user-api/actions/workflows/gradle.yml)
-[![coverage](.github/badges/jacoco.svg)](https://github.com/RubensPS/ec-user-api/actions/workflows/build.yml)
+![Coverage](.github/badges/jacoco.svg)
 
 ## Introduction
 
