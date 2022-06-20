@@ -14,9 +14,11 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+
     test {
         finalizedBy jacocoTestReport
     }
+
     jacocoTestReport {
         dependsOn test
         sourceSets sourceSets.main
