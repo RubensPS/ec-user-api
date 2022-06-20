@@ -30,6 +30,7 @@ configurations {
             csv.destination file("${buildDir}/reports/jacoco/jacoco.csv")
         }
     }
+
 }
 
 repositories {
