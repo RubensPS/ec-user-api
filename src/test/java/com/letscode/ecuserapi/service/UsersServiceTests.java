@@ -1,9 +1,8 @@
-package com.letscode.ecuserapi;
+package com.letscode.ecuserapi.service;
 
 import com.letscode.ecuserapi.domain.UserEntity;
 import com.letscode.ecuserapi.domain.UserResponse;
 import com.letscode.ecuserapi.repository.UserRepository;
-import com.letscode.ecuserapi.service.UserService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -24,7 +23,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UsersServiceTest {
+class UsersServiceTests {
 
     @Mock
     private UserRepository userRepository;
