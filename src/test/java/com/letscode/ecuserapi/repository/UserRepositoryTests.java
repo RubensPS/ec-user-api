@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
-public class UsersRepositoryTests {
+public class UserRepositoryTests {
 
     @Autowired
     private UserRepository userRepository;
