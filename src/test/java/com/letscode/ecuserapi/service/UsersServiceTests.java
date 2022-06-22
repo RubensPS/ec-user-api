@@ -40,15 +40,14 @@ class UsersServiceTests {
         MockitoAnnotations.openMocks(this);
     }
 
-    private UserEntity userEntity1 = new UserEntity("RPS", "123", "Rubens", "rubens@email.com", ZonedDateTime.now(), ZonedDateTime .now());
+    private UserEntity userEntity1 = new UserEntity(1, "RPS", "123", "Rubens", "rubens@email.com", ZonedDateTime.now(), ZonedDateTime .now());
 
     @DisplayName("JUnit test for add user operation")
     @Test
     void givenUserRequest_whenAddUser_thenReturnResponseEntityWithUserResponse() {
         UserRequest request = new UserRequest("RPS", "123", "Rubens", "rubens@email.com");
-        UserEntity user = request.toEntity();
         BDDMockito.given(userRepository.findByName(request.getName())).willReturn(Optional.empty());
-        BDDMockito.given(userRepository.save(any(UserEntity.class))).willReturn(user);
+        BDDMockito.given(userRepository.save(any(UserEntity.class))).willReturn(userEntity1);
         userService = new UserService(userRepository);
 
         ResponseEntity response = userService.addUser(request);
@@ -61,8 +60,7 @@ class UsersServiceTests {
     @Test
     void givenUserRequest_whenAddUser_thenReturnResponseEntityConflict() {
         UserRequest request = new UserRequest("RPS", "123", "Rubens", "rubens@email.com");
-        UserEntity user = request.toEntity();
-        BDDMockito.given(userRepository.findByName(request.getName())).willReturn(Optional.of(user));
+        BDDMockito.given(userRepository.findByName(request.getName())).willReturn(Optional.of(userEntity1));
         userService = new UserService(userRepository);
 
         ResponseEntity response = userService.addUser(request);
@@ -98,7 +96,7 @@ class UsersServiceTests {
 
     @Test
     void getAllUsers() {
-        final UserEntity userEntity2 = new UserEntity("CWR", "234", "Cinderela", "cindy@email.com", ZonedDateTime.now(), ZonedDateTime .now());
+        final UserEntity userEntity2 = new UserEntity(2, "CWR", "234", "Cinderela", "cindy@email.com", ZonedDateTime.now(), ZonedDateTime .now());
 
         when(userRepository.findAll()).thenReturn(List.of(userEntity1, userEntity2));
         userService = new UserService(userRepository);
@@ -116,11 +114,11 @@ class UsersServiceTests {
         userService = new UserService(userRepository);
 
         ResponseEntity<String> response = userService.deleteUser(userEntity1.getId());
+
         verify(userRepository).deleteById(userEntity1.getId());
         assertFalse(response.getBody().isEmpty());
         assertTrue(response.getStatusCode().equals(HttpStatus.OK));
         assertTrue(response.getBody().equals("User DELETE successfully."));
     }
-
 
 }
