@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UsersServiceTests {
+class UserServiceTests {
 
     @Mock
     private UserRepository userRepository;
