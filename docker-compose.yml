@@ -6,13 +6,17 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: users
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - ec-users-mysql
 
   ec-carts-mongo:
     image: mongo:latest
     container_name: ec-carts-mongo
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - ec-carts-mongo
 
   ec-products-mongo:
     image: mongo:latest
@@ -21,7 +25,9 @@ services:
     ports:
       - 27018:27018
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - ec-products-mongo
 
   ec-sales-mongo:
     image: mongo:latest
@@ -30,45 +36,56 @@ services:
     ports:
       - 27019:27019
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - ec-sales-mongo
 
   usersAPI:
-    image: devrps/ec-users-api-image:1.0
+    build: ~/IdeaProjects/ec-user-api
+    image: ec-users-api-image
     container_name: ec-users-api-container
     ports:
-      - 8083:8083
+      - 8083:80
     depends_on:
       - ec-users-mysql
       - eureka-server
     networks:
-      - ec-network-01
-
+      ec-network-01:
+        aliases:
+          - ec-users-service
   cartsAPI:
-    image: devrps/ec-carts-api-image:1.0
+    build: ~/IdeaProjects/ec-carts-api/
+    image: ec-carts-api-image
     container_name: ec-carts-api-container
     ports:
-      - 8081:8081
+      - 8081:80
     depends_on:
       - ec-carts-mongo
       - usersAPI
       - productsAPI
       - eureka-server
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - ec-carts-service
 
   productsAPI:
-    image: devrps/ec-products-api-image:1.0
+    build: ~/IdeaProjects/ec-products-api/
+    image: ec-products-api-image
     container_name: ec-products-api-container
     ports:
-      - 8082:8082
+      - 8082:80
     depends_on:
       - ec-products-mongo
       - eureka-server
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - ec-products-service
 
   salesAPI:
-    image: devrps/ec-sales-api-image:1.0
+    build: ~/IdeaProjects/ec-sales-api/
+    image: ec-sales-api-image
     container_name: ec-sales-api-container
     ports:
       - 80:80
@@ -78,47 +95,65 @@ services:
       - cartsAPI
       - eureka-server
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - ec-sales-service
 
   prometheus:
     image: prom/prometheus
     container_name: prometheus-container
     ports:
       - 9090:9090
+    volumes:
+      - C:/Users/ruben/IdeaProjects/prometheus:/etc/prometheus
+      - C:/Users/ruben/IdeaProjects/prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - prometheus
 
   grafana:
     image: grafana/grafana:latest
     container_name: grafana-container
     ports:
       - 3000:3000
+    volumes:
+      - C:/Users/ruben/IdeaProjects/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
     depends_on:
       - prometheus
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - grafana
 
   eureka-server:
-    image: devrps/ec-eureka-image:1.1
+    build: ~/IdeaProjects/ec-eureka-server/
+    image: ec-eureka-image
     container_name: eureka-server
     ports:
       - 8761:8761
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - eureka-server
 
   ec-gateway:
-    image: devrps/ec-gateway-image:1.0
+    build: ~/IdeaProjects/ec-gateway
+    image: devrps/ec-gateway-image
     ports:
       - 8080:8080
     container_name: ec-gateway-container
     depends_on:
       - eureka-server
     networks:
-      - ec-network-01
+      ec-network-01:
+        aliases:
+          - gateway-service
 
 networks:
   ec-network-01:
     name: ec-network-01
+    driver: bridge
