@@ -1,4 +1,13 @@
 services:
+
+  ec-redis:
+    image: redis:latest
+    container_name: ec-redis
+    networks:
+      ec-network-01:
+        aliases:
+          - ec-redis
+
   ec-users-mysql:
     image: mysql:latest
     container_name: ec-users-mysql
@@ -49,10 +58,12 @@ services:
     depends_on:
       - ec-users-mysql
       - eureka-server
+      - ec-redis
     networks:
       ec-network-01:
         aliases:
           - ec-users-service
+
   cartsAPI:
     build: ~/IdeaProjects/ec-carts-api/
     image: ec-carts-api-image

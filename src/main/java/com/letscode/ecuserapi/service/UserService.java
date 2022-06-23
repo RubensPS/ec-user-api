@@ -5,6 +5,8 @@ import com.letscode.ecuserapi.domain.UserRequest;
 import com.letscode.ecuserapi.domain.UserResponse;
 import com.letscode.ecuserapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class UserService {
 
     private final UserRepository repository;
 
+    @CacheEvict(cacheNames = "users", allEntries = true)
     public ResponseEntity<UserResponse> addUser(UserRequest request) {
         Optional<UserEntity> entity = repository.findByName(request.getName());
         if (entity.isPresent()) {
@@ -34,6 +37,7 @@ public class UserService {
         return response;
     }
 
+    @CacheEvict(cacheNames = "users", allEntries = true)
     public ResponseEntity<String> deleteUser(Integer userId) {
         Optional<UserEntity> entity = repository.findById(userId);
         if (entity.isEmpty()) {
@@ -43,6 +47,7 @@ public class UserService {
         return ResponseEntity.ok("User DELETE successfully.");
     }
 
+    @Cacheable(cacheNames = "users")
     public List<UserResponse> getAllUsers() {
         return repository.findAll()
                 .stream()
